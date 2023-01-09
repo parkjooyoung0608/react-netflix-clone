@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { useDebounce } from "./../../hooks/useDebounce";
 import "./SearchPage.css";
 
 const SearchPage = () => {
+  const navigate = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
 
   const useQuery = () => {
@@ -40,7 +41,10 @@ const SearchPage = () => {
               "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
             return (
               <div className="movie" key={movie.id}>
-                <div className="movie__column-poster">
+                <div
+                  onClick={() => navigate(`/${movie.id}`)}
+                  className="movie__column-poster"
+                >
                   <img
                     src={movieImageUrl}
                     alt="movie"
